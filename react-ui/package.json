@@ -2,7 +2,7 @@
   "name": "redux-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://react-redux-vercel-two.vercel.app",
+  "proxy": "https://todoapp-x32k.onrender.com",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",

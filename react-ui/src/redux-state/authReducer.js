@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchCondition } from "../helpers/fetch2";
+// import { BASE_URL } from "../helpers/BaseUrl";
 
 const initialState = {
     token: "",
@@ -11,7 +12,7 @@ const initialState = {
 export const signupUser = createAsyncThunk(
     'signupuser',
     async (body) => {
-        const result = await fetchCondition('/signup', body);
+        const result = await fetchCondition(`/signup`, body);
         return result;
 
     }, 
@@ -20,7 +21,7 @@ export const signupUser = createAsyncThunk(
 export const signinUser = createAsyncThunk(
     'signinuser',
     async (body) => {
-        const result = await fetchCondition('/signin', body,);
+        const result = await fetchCondition(`/signin`, body,);
         return result;
 
     }

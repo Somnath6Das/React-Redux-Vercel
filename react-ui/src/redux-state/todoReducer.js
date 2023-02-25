@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchCondition, fetchDeleteTodos } from "../helpers/fetch2";
+// import { BASE_URL } from "../helpers/BaseUrl";
+
 
 const initialState = []
 
@@ -7,7 +9,7 @@ const initialState = []
 export const createTodo = createAsyncThunk(
     'createtodo',
     async (body) => {
-        const result = await fetchCondition('/createtodo', body,);
+        const result = await fetchCondition(`/createtodo`, body,);
         return result;
 
     }
@@ -15,7 +17,7 @@ export const createTodo = createAsyncThunk(
 export const fetchTodo = createAsyncThunk(
     'fetchtodo',
     async () => {
-        const result = await fetchDeleteTodos('/gettodos', 'get');
+        const result = await fetchDeleteTodos(`/gettodos`, 'get');
         return result;
 
     }
