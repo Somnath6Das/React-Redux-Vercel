@@ -6,6 +6,9 @@ import jwt from "jsonwebtoken";
 import { User } from "./models/user.js";
 import { Todo } from "./models/todo.js";
 import {requireLogin} from "./controllers/RequireLogin.js";
+import path from "path";
+
+
 const app = express();
 dotenv.config();
 
@@ -80,8 +83,12 @@ app.delete('/remove/:id', requireLogin, async(req, res) =>{
   res.status(200).json({message: removeTodo})
 })
 
+// server connect to react-ui
+app.use(express.static(path.join(__dirname, './react-ui/build')));
 
-
+app.get('*', function(req, res){
+    res.sendFile(path.join(__dirname, './react-ui/build/index.html'));
+})
 
 app.listen(process.env.PORT, () => {
     console.log(`http://localhost:${process.env.PORT}`);
