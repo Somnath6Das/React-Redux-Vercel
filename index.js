@@ -84,5 +84,5 @@ app.delete('/remove/:id', requireLogin, async(req, res) =>{
 
 
 app.listen(process.env.PORT, () => {
-    console.log("Backend server listen port: 8800");
+    console.log(`http://localhost:${process.env.PORT}`);
 });
