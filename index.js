@@ -6,7 +6,11 @@ import jwt from "jsonwebtoken";
 import { User } from "./models/user.js";
 import { Todo } from "./models/todo.js";
 import {requireLogin} from "./controllers/RequireLogin.js";
-import path from "path";
+
+import { fileURLToPath } from 'url';
+import path,{ dirname } from "path";
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 
 
 const app = express();
@@ -84,10 +88,12 @@ app.delete('/remove/:id', requireLogin, async(req, res) =>{
 })
 
 // server connect to react-ui
-app.use(express.static(path.join(__dirname, './react-ui/build')));
+app.use(express.static(path.join(__dirname, './client/build')));
+
+
 
 app.get('*', function(req, res){
-    res.sendFile(path.join(__dirname, './react-ui/build/index.html'));
+    res.sendFile(path.join(__dirname, './client/build/index.html'));
 })
 
 app.listen(process.env.PORT, () => {
