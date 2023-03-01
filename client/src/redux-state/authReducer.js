@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchCondition } from "../helpers/fetch2";
-// import { BASE_URL } from "../helpers/BaseUrl";
+
 
 const initialState = {
     token: "",
