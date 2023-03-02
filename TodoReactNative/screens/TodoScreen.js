@@ -1,15 +1,22 @@
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Button, TextInput, FlatList, TouchableOpacity } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { logout } from '../redux-state/authReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { createTodo, deleteTodo, fetchTodo } from './../redux-state/todoReducer';
 
 export default function TodoScreen() {
     const [myTodo, setMytodo] = useState("");
-
-    const ItemList = () => {
+    const dispatch = useDispatch();
+    const todos = useSelector(state => state.todos);
+    useEffect(() => {
+        dispatch(fetchTodo())
+    }, []);
+    const ItemList = ({ title, id }) => {
         return (
             <View style={styles.list}>
-                <Text style={styles.text}>item1</Text>
-                <MaterialCommunityIcons name="delete-forever" size={24} color="red" />
+                <Text style={styles.text}>{title}</Text>
+                <MaterialCommunityIcons onPress={() => dispatch(deleteTodo(id))} name="delete-forever" size={24} color="red" />
             </View>
         )
     }
@@ -23,13 +30,20 @@ export default function TodoScreen() {
                 value={myTodo} />
             <Button title='Add Todo'
                 color='#00e676'
-                onPress={() => { }}
+                onPress={() => dispatch(createTodo({ todos: myTodo }))}
             />
-
-            <ItemList />
-            <ItemList />
-            <ItemList />
-            <ItemList />
+            <TouchableOpacity style={{ marginVertical: 5 }}>
+                <Button
+                    title="Logout"
+                    color="#ff4081"
+                    onPress={() => dispatch(logout())}
+                />
+            </TouchableOpacity>
+            <FlatList data={todos}
+                renderItem={({ item }) => {return <ItemList title={item.todos} id={item._id} />}}
+                // keyExtractor={item => item._id}
+                keyExtractor={(item, index) => item._id}
+            />
 
         </View>
     )
